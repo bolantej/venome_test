@@ -1,4 +1,4 @@
-from api.users import login, signup, delete_user
+from api.users import login, signup, delete_user, get_user_id
 
 def test_example():
     assert 1
