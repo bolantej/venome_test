@@ -12,3 +12,6 @@ def test_account_creation():
     assert signup({"test", "test@test.com", "test"}).error != ""
     id = get_user_id("test")
     assert delete_user(id) == 0
+
+def test2():
+    assert 1
