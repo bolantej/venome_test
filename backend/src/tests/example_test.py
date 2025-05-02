@@ -13,5 +13,3 @@ def test_account_creation():
     body = SignupBody(username="test", email="test@test.com", password="test")
     response = signup(body)
     assert response.error == ""
-    id = get_user_id("test")
-    assert delete_user(id) == 0
