@@ -88,5 +88,10 @@ jobs:
               env:
                   PYTHONPATH: ../
                   DATABASE_URL: postgres://myuser:mypassword@localhost:5432/venome
+                  DB_HOST: localhost
+                  DB_PORT: 5432
+                  DB_NAME: venome
+                  DB_USER: myuser
+                  DB_PASSWORD: mypassword
               run: |
                   poetry run pytest
