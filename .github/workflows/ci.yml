@@ -83,7 +83,7 @@ jobs:
 
             - name: Apply schema
               run: |
-                    psql -h localhost -U testuser -d testdb -f backups/v0.0.3/dump.sql
+                    psql -h localhost -U myuser -d testdb -f backups/v0.0.3/dump.sql
               env:
                   PGPASSWORD: mypassword
 
