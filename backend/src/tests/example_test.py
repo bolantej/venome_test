@@ -9,6 +9,7 @@ def test_login():
 
 #attempt to create and delete an account
 def test_account_creation():
-    assert signup({username:"test", email:"test@test.com", password:"test"}).error != ""
+    body = SignupBody(username="test", email="test@test.com", password="test")
+    assert signup(body).error != ""
     id = get_user_id("test")
     assert delete_user(id) == 0
