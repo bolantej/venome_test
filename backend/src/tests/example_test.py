@@ -16,11 +16,7 @@ def test_get_user():
     assert response.email == "test@test.com"
 
 def test_account_deletion():
-    scope: Scope = {
-        "type": "http",
-        "headers": [(b"authorization", token.encode())],
-    }
-    delete_user(1, Request(scope))
+    delete_user(1)
     response: UserResponse = get_user(1)
     assert response.username == ""
     assert response.email == ""
