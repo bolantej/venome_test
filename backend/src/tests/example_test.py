@@ -5,5 +5,5 @@ from src.api_types import SignupBody, SignupResponse
 #attempt to create an account
 def test_account_creation():
     body = SignupBody(username="test", email="test@test.com", password="test")
-    response = signup(body)
+    response: SignupResponse = signup(body)
     assert response.error == ""
