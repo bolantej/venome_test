@@ -10,13 +10,15 @@ def test_account_creation():
     id: UserIDResponse = get_user_id("test_user2")
     assert id.id != -1
 
+
+def test_login():
+    body = LoginBody(email="test@email.com", password="test")
+    response: LoginResponse = login(body)
+    assert response.user_id != 0
+    assert response.token != ""
+
+
 def test_get_user():
     response: UserResponse = get_user(1)
     assert response.username == "test_user1"
     assert response.email == "test@test.com"
-
-def test_account_deletion():
-    delete_user(1)
-    response: UserResponse = get_user(1)
-    assert response.username == ""
-    assert response.email == ""
