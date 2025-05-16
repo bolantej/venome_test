@@ -1,4 +1,4 @@
-from src.api.users import signup, get_user_id, get_user, login  # , delete_user
+from src.api.users import signup, get_user_id, get_user, get_users, login, delete_user, edit_user
 from src.api_types import (
     SignupBody,
     SignupResponse,
@@ -74,7 +74,7 @@ def test_login_3():
     body = LoginBody(email="test@email.com", password="fake")
     response: LoginResponse = login(body)
     assert response.user_id == 0
-    assert response.token == "Invalid Password"
+    assert response.error == "Invalid Password"
 
 def test_get_user():
     response: UserResponse = get_user(1)
