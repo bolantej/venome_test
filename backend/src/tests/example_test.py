@@ -87,12 +87,11 @@ def test_get_user():
 #successfully edit user
 def test_edit_user():
     req = create_dummy_request()
-    body = UserBody(id = 1, username = "edited", email = "blank@blank.com", admin = False)
+    body = UserBody(id = 1, username = "edited", admin = False)
     edit_user(1, body, req)
     response: UserResponse = get_user(1)
     print(response)
     assert response.username == "edited"
-    assert response.email == "edited@test.com"
     assert response.admin == False
 
 #fail to edit user by changing username to taken username
