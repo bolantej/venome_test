@@ -25,7 +25,7 @@ def create_dummy_request(auth_token: str) -> Request:
 
 #attempt to create an account
 def test_account_creation():
-    body = SignupBody(username="test_user2", email="test@email.com", password="test")
+    body = SignupBody(username="test_user3", email="test@email.com", password="test")
     response: SignupResponse = signup(body)
     assert response.error == ""
     id: UserIDResponse = get_user_id("test_user2")
