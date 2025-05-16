@@ -5,6 +5,7 @@ from src.api_types import (
     UserResponse,
     UserIDResponse,
     LoginBody,
+    LoginResponse,
 )
 from FastApi.requests import Request, Scope
 from src.auth import generate_auth_token
