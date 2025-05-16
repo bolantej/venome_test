@@ -7,7 +7,7 @@ from src.api_types import (
     LoginBody,
     LoginResponse,
 )
-from FastApi.requests import Request, Scope
+from fastapi.requests import Request, Scope
 from src.auth import generate_auth_token
 
 def create_dummy_request(auth_token: str) -> Request:
