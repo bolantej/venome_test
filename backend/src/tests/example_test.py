@@ -31,11 +31,18 @@ def test_account_creation():
     id: UserIDResponse = get_user_id("test_user2")
     assert id.id != -1
 
+#attempt to create an account with an already taken username
 def test_account_creation_2():
     body = SignupBody(username="test_user2", email="test2@test.com", password="test")
     response: SignupResponse = signup(body)
-    assert response.error != ""
-    id: UserIDResponse = get_user_id("test_user2")
+    assert response.error == "Server error."
+
+# attempt to create an account with an already taken email
+def test_account_creation_3():
+    body = SignupBody(username="test_user4", email="test@test.com", password="test")
+    response: SignupResponse = signup(body)
+    assert response.error == "Server error."
+    id: UserIDResponse = get_user_id("test_user4")
     assert id.id == -1
 
 def test_login():
