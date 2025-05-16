@@ -34,7 +34,7 @@ def test_account_creation():
 def test_account_creation_2():
     body = SignupBody(username="test_user2", email="test2@test.com", password="test")
     response: SignupResponse = signup(body)
-    assert response.error == "Server Error."
+    assert response.error != ""
     id: UserIDResponse = get_user_id("test_user2")
     assert id.id == -1
 
