@@ -7,7 +7,8 @@ from src.api_types import (
     LoginBody,
     LoginResponse,
 )
-from fastapi.requests import Request, Scope
+from starlette.requests import Request
+from starlette.types import Scope
 from src.auth import generate_auth_token
 
 def create_dummy_request(auth_token: str) -> Request:
