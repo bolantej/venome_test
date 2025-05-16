@@ -1,5 +1,6 @@
 from src.api.users import signup, delete_user, get_user_id, get_user, login #, delete_user
 from src.api_types import SignupBody, SignupResponse, UserResponse, UserIDResponse, LoginBody
+from FastApi.requests import Request
 
 def create_dummy_request(auth_token: str) -> Request:
     scope: Scope = {
