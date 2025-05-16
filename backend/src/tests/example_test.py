@@ -97,6 +97,7 @@ def test_edit_user():
     body = UserBody(id = 1, username = "edited", email = "edited@test.com", admin = False)
     edit_user(1, body, req)
     response: UserResponse = get_user(1)
+    print(response)
     assert response.username == "edited"
     assert response.email == "edited@test.com"
     assert response.admin == False
