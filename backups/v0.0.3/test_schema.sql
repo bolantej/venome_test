@@ -510,6 +510,8 @@ INSERT INTO public.species VALUES (2, 'test species 2');
 --
 
 INSERT INTO public.users VALUES (1, 'test_user1', 'test@test.com', '$2b$12$VWEzOn6WV//5xKVWZ1gCJOMfSwB4GPAAysZFbaV4Fhg.7tDfonia6', true);
+INSERT INTO public.users VALUES (1, 'test_user2', 'test2@test.com', '$2b$12$VWEzOn6WV//5xKVWZ1gCJOMfSwB4GPAAysZFbaV4Fhg.7tDfonia6', true);
+
 
 
 --
