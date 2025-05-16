@@ -31,6 +31,12 @@ def test_account_creation():
     id: UserIDResponse = get_user_id("test_user2")
     assert id.id != -1
 
+def test_account_creation_2():
+    body = SignupBody(username="test_user2", email="test2@test.com", password="test")
+    response: SignupResponse = signup(body)
+    assert response.error == "Server Error."
+    id: UserIDResponse = get_user_id("test_user2")
+    assert id.id == -1
 
 def test_login():
     body = LoginBody(email="test@email.com", password="test")
