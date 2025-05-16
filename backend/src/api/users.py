@@ -114,7 +114,7 @@ def get_user_id(username: str):
     with Database() as db:
         query = """SELECT id FROM users WHERE username = %s;"""
         user_id = db.execute_return(query, [username])
-        if user_id is not None:
+        if user_id is not None and len(user_id) > 0:
             return UserIDResponse(id=user_id[0][0])
         else:
             return UserIDResponse(id=-1)
