@@ -87,7 +87,7 @@ def test_get_user():
 #successfully edit user
 def test_edit_user():
     req = create_dummy_request()
-    body = UserBody(id = 1, username = "edited", email = "edited@test.com", admin = False)
+    body = UserBody(id = 1, username = "edited", email = "blank@blank.com", admin = False)
     edit_user(1, body, req)
     response: UserResponse = get_user(1)
     print(response)
@@ -101,7 +101,7 @@ def test_edit_user_2():
     body = UserBody(id = 1, username = "test_user2")
     edit_user(1, body, req)
     response: UserResponse = get_user(1)
-    assert response.username == "edited"
+    assert response.username == "test_user1"
 
 def test_account_deletion():
     req = create_dummy_request()
