@@ -1,18 +1,17 @@
-from src.api.users import signup, get_user_id, get_user, get_users, login, delete_user, edit_user, get_user_proteins
-from src.api_types import (
-    SignupBody,
-    SignupResponse,
-    UserResponse,
-    UserIDResponse,
-    LoginBody,
-    LoginResponse,
-    UsersResponse,
-    UserBody,
+from src.api.protein import (
+    protein_name_found,
+    get_protein_entry,
+    get_all_protein_entries,
+    get_protein_entry_user,
+    request_protein_entry,
+    get_protein_status,
+    edit_request_status,
+    upload_protein_entry,
 )
+from src.api_types import ProteinEntry, ProteinBody, UploadError, RequestStatus, RequestBodyEdit
 from starlette.requests import Request
 from starlette.types import Scope
 from src.auth import generate_auth_token
-
 
 def create_dummy_request() -> Request:
     token = generate_auth_token("test@test.com", admin=True)
@@ -26,90 +25,77 @@ def create_dummy_request() -> Request:
     }
     return Request(scope)
 
-def test_get_users():
-    req = create_dummy_request()
-    response: UsersResponse = get_users(req)
-    assert len(response.users) == 2
-    assert response.users[0].username == "test_user1"
 
-def test_get_user_proteins():
-    response: list[str] = get_user_proteins(1)
-    assert len(response) == 3
+def test_get_all_entries():
+    response = get_all_protein_entries()
+    assert len(response) == 6
 
-#successfully attempt to create an account
-def test_account_creation():
-    body = SignupBody(username="test_user3", email="test@email.com", password="test")
-    response: SignupResponse = signup(body)
-    assert response.error == ""
-    id: UserIDResponse = get_user_id("test_user3")
-    assert id.id != -1
 
-#attempt to create an account with an already taken username
-def test_account_creation_2():
-    body = SignupBody(username="test_user2", email="test2@test.com", password="test")
-    response: SignupResponse = signup(body)
-    assert response.error == "Server error."
+def test_protein_name_search():
+    assert protein_name_found("test_seq1") == True
+    assert protein_name_found("test_seq2") == True
+    assert protein_name_found("fake_protein_that_doesnt_exist") == False
 
-# attempt to create an account with an already taken email
-def test_account_creation_3():
-    body = SignupBody(username="test_user4", email="test@test.com", password="test")
-    response: SignupResponse = signup(body)
-    assert response.error == "Server error."
-    id: UserIDResponse = get_user_id("test_user4")
-    assert id.id == -1
 
-#successfully attempt to login
-def test_login():
-    body = LoginBody(email="test@email.com", password="test")
-    response: LoginResponse = login(body)
-    assert response.user_id != 0
-    assert response.token != ""
+def test_get_entry():
+    response: ProteinEntry = get_protein_entry("test_seq1")
+    assert response.length == 1
+    assert response.mass == 1.1
+    assert response.atoms == 1
+    assert response.species_name == "test species 1"
 
-#fail to login with bad username
-def test_login_2():
-    body = LoginBody(email="fake@email.com", password="test")
-    response: LoginResponse = login(body)
-    assert response.user_id == 0
-    assert response.token == ""
-    assert response.error == "Invalid Email or Password"
-
-#fail to login with bad password
-def test_login_3():
-    body = LoginBody(email="test@email.com", password="fake")
-    response: LoginResponse = login(body)
-    assert response.user_id == 0
-    assert response.error == "Invalid Email or Password"
-
-def test_get_user():
-    response: UserResponse = get_user(1)
+def test_get_protein_entry_user():
+    response: UserResponse = get_protein_entry_user("test_seq1")
     assert response.username == "test_user1"
     assert response.email == "test@test.com"
-    response: UserResponse = get_user(999)
-    assert response.username == ""
-    assert response.email == ""
+    response: UserResponse = get_protein_entry_user("test_seq3")
+    assert response.username == "test_user2"
+    assert response.email == "test2@test.com"
 
-#successfully edit user
-def test_edit_user():
+#successfully add protein
+def test_upload_protein_entry():
+    body = ProteinBody(name="test_seq7", description="new fake sequence", species_name="test species 1", content="content", refs="refs")
     req = create_dummy_request()
-    body = UserBody(id = 1, username = "edited", admin = False)
-    edit_user(1, body, req)
-    response: UserResponse = get_user(1)
-    print(response)
-    assert response.username == "edited"
-    assert response.admin == False
+    response = upload_protein_entry(body, req)
+    assert response is None
 
-#fail to edit user by changing username to taken username
-def test_edit_user_2():
+#successfully request protein
+def test_request_protein_entry():
+    proteinBody = ProteinBody(name="test_seq8", description="existing fake sequence", species_name="test species 1", content="content", refs="refs")
+    body = RequestBody(user_id=2, comment="comment", status="Pending", protein=proteinBody)
     req = create_dummy_request()
-    body = UserBody(id = 1, username = "test_user2")
-    edit_user(1, body, req)
-    response: UserResponse = get_user(1)
-    assert response.username == "test_user1"
+    response = request_protein_entry(body, req)
+    assert response is None
+    status_response: RequestStatus = get_protein_status("test_seq8", req)
+    assert status_response == RequestStatus.PENDING
 
-def test_account_deletion():
+#request protein with taken name
+def test_request_protein_entry2():
+    proteinBody = ProteinBody(name="test_seq1", description="existing fake sequence", species_name="test species 1", content="content", refs="refs")
+    body = RequestBody(user_id=2, comment="comment", status="Pending", protein=proteinBody)
     req = create_dummy_request()
-    delete_user(1, req)
-    response: UserResponse = get_user(1)
-    assert response.username == ""
-    assert response.email == ""
+    response = request_protein_entry(body, req)
+    assert response is UploadError
 
+def test_get_protein_status():
+    req = create_dummy_request()
+    response: RequestStatus = get_protein_status("test_seq1", req)
+    assert response == RequestStatus.APPROVED
+    response: RequestStatus = get_protein_status("test_seq4", req)
+    assert response == RequestStatus.PENDING
+    response: RequestStatus = get_protein_status("test_seq6", req)
+    assert response == RequestStatus.DENIED
+
+def test_edit_request_status():
+    req = create_dummy_request()
+    body = RequestBodyEdit(request_id=4, status="DENIED")
+    response = edit_request_status(body, req)
+    assert response is None
+    status_response: RequestStatus = get_protein_status("test_seq4", req)
+    assert status_response == RequestStatus.DENIED
+
+    
+def test_delete_protein_entry():
+    req = create_dummy_request()
+    delete_protein_entry("test_seq2", req)
+    assert get_protein_entry("test_seq2") == None
