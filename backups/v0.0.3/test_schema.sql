@@ -458,12 +458,12 @@ ALTER TABLE ONLY public.requests ALTER COLUMN id SET DEFAULT nextval('public.req
 -- Dummy Data for Name: proteins; Type: TABLE DATA; Schema: public; Owner: myuser
 --
 
-INSERT INTO public.proteins VALUES (0, 'test_seq1', 'fake approved sequence for testing', 1, 1.1, 1, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 1, '\x64', '2024-05-22 04:17:26.928835+00');
-INSERT INTO public.proteins VALUES (1, 'test_seq2', 'fake approved sequence for testing', 2, 2.2, 2, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:27.987764+00');
-INSERT INTO public.proteins VALUES (2, 'test_seq3', 'fake approved sequence for testing', 3, 3.3, 3, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 1, '\x64', '2024-05-22 04:17:28.421996+00');
-INSERT INTO public.proteins VALUES (3, 'test_seq4', 'fake pending sequence for testing', 4, 4.4, 4, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:28.421996+00');
-INSERT INTO public.proteins VALUES (4, 'test_seq5', 'fake pending sequence for testing', 5, 5.5, 5, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:28.421996+00');
-INSERT INTO public.proteins VALUES (5, 'test_seq6', 'fake denied sequence for testing', 6, 6.6, 6, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:28.421996+00');
+INSERT INTO public.proteins VALUES (1, 'test_seq1', 'fake approved sequence for testing', 1, 1.1, 1, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 1, '\x64', '2024-05-22 04:17:26.928835+00');
+INSERT INTO public.proteins VALUES (2, 'test_seq2', 'fake approved sequence for testing', 2, 2.2, 2, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:27.987764+00');
+INSERT INTO public.proteins VALUES (3, 'test_seq3', 'fake approved sequence for testing', 3, 3.3, 3, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 1, '\x64', '2024-05-22 04:17:28.421996+00');
+INSERT INTO public.proteins VALUES (4, 'test_seq4', 'fake pending sequence for testing', 4, 4.4, 4, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:28.421996+00');
+INSERT INTO public.proteins VALUES (5, 'test_seq5', 'fake pending sequence for testing', 5, 5.5, 5, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:28.421996+00');
+INSERT INTO public.proteins VALUES (6, 'test_seq6', 'fake denied sequence for testing', 6, 6.6, 6, 'From the [Testing Laboratory](https://venombiochemistrylab.weebly.com/)', '', 2, '\x64', '2024-05-22 04:17:28.421996+00');
 
 -- Add dummy requests for proteins.
 INSERT INTO public.requests (
@@ -472,11 +472,11 @@ INSERT INTO public.requests (
     comment,
     status_type
 ) SELECT 1, id, 'Original Proteins Added', 'Approved' FROM public.proteins WHERE id <= 1;
-INSERT INTO public.requests VALUES (2, 2, 2, '2024-05-22 04:17:28.421996+00', 'Original Proteins Added', 'Approved');
+INSERT INTO public.requests VALUES (3, 2, 2, '2024-05-22 04:17:28.421996+00', 'Original Proteins Added', 'Approved');
 
-INSERT INTO public.requests VALUES (3, 2, 3, '2024-05-22 04:17:28.421996+00', 'test protein', 'Pending');
-INSERT INTO public.requests VALUES (4, 2, 4, '2024-05-22 04:17:28.421996+00','test protein', 'Pending');
-INSERT INTO public.requests VALUES (5, 2, 5, '2024-05-22 04:17:28.421996+00', 'test protein', 'Denied');
+INSERT INTO public.requests VALUES (4, 2, 3, '2024-05-22 04:17:28.421996+00', 'test protein', 'Pending');
+INSERT INTO public.requests VALUES (5, 2, 4, '2024-05-22 04:17:28.421996+00','test protein', 'Pending');
+INSERT INTO public.requests VALUES (6, 2, 5, '2024-05-22 04:17:28.421996+00', 'test protein', 'Denied');
 -- View with at a glance info about a protein
 DROP VIEW full_protein_info;
 
