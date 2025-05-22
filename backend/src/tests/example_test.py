@@ -1,4 +1,4 @@
-from src.api.users import signup, get_user_id, get_user, get_users, login, delete_user, edit_user
+from src.api.users import signup, get_user_id, get_user, get_users, login, delete_user, edit_user, get_user_proteins
 from src.api_types import (
     SignupBody,
     SignupResponse,
@@ -31,6 +31,10 @@ def test_get_users():
     response: UsersResponse = get_users(req)
     assert len(response.users) == 2
     assert response.users[0].username == "test_user1"
+
+def test_get_user_proteins():
+    response: list[str] = get_user_proteins(1)
+    assert len(response) == 3
 
 #successfully attempt to create an account
 def test_account_creation():
