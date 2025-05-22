@@ -472,11 +472,11 @@ INSERT INTO public.requests (
     comment,
     status_type
 ) SELECT 1, id, 'Original Proteins Added', 'Approved' FROM public.proteins WHERE id <= 1;
-INSERT INTO public.requests VALUES (2, 2, 2, 'Original Proteins Added', 'Approved');
+INSERT INTO public.requests VALUES (2, 2, 2, '2024-05-22 04:17:28.421996+00', 'Original Proteins Added', 'Approved');
 
-INSERT INTO public.requests VALUES (3, 2, 3, 'test protein', 'Pending');
-INSERT INTO public.requests VALUES (4, 2, 4, 'test protein', 'Pending');
-INSERT INTO public.requests VALUES (5, 2, 5, 'test protein', 'Denied');
+INSERT INTO public.requests VALUES (3, 2, 3, '2024-05-22 04:17:28.421996+00', 'test protein', 'Pending');
+INSERT INTO public.requests VALUES (4, 2, 4, '2024-05-22 04:17:28.421996+00','test protein', 'Pending');
+INSERT INTO public.requests VALUES (5, 2, 5, '2024-05-22 04:17:28.421996+00', 'test protein', 'Denied');
 -- View with at a glance info about a protein
 DROP VIEW full_protein_info;
 
