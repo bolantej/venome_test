@@ -2,6 +2,8 @@ from src.api.protein import (
     protein_name_found,
     get_protein_entry,
     get_all_protein_entries,
+    get_all_pending_protein_entries,
+    get_all_denied_protein_entries,
     get_protein_entry_user,
     request_protein_entry,
     get_protein_status,
@@ -64,7 +66,7 @@ def test_get_protein_entry_user():
 
 #successfully add protein
 def test_upload_protein_entry():
-    body = ProteinBody(name="test_seq7", description="new fake sequence", species_name="test species 1", content="content", refs="refs")
+    body = ProteinBody(name="test_seq7", description="new fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="blank")
     req = create_dummy_request()
     response = upload_protein_entry(body, req)
     assert response is None
@@ -73,7 +75,7 @@ def test_upload_protein_entry():
 
 #successfully request protein
 def test_request_protein_entry():
-    proteinBody = ProteinBody(name="test_seq8", description="new fake sequence", species_name="test species 1", content="content", refs="refs")
+    proteinBody = ProteinBody(name="test_seq8", description="new fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="blank")
     body = RequestBody(user_id=2, comment="comment", status="Pending", protein=proteinBody)
     req = create_dummy_request()
     response = request_protein_entry(body, req)
@@ -83,7 +85,7 @@ def test_request_protein_entry():
 
 #request protein with taken name
 def test_request_protein_entry2():
-    proteinBody = ProteinBody(name="test_seq1", description="existing fake sequence", species_name="test species 1", content="content", refs="refs")
+    proteinBody = ProteinBody(name="test_seq1", description="existing fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="blank")
     body = RequestBody(user_id=2, comment="comment", status="Pending", protein=proteinBody)
     req = create_dummy_request()
     response = request_protein_entry(body, req)
@@ -93,10 +95,10 @@ def test_get_protein_status():
     req = create_dummy_request()
     response: RequestStatus = get_protein_status("test_seq1", req)
     assert response == RequestStatus.APPROVED
-    response: RequestStatus = get_protein_status("test_seq4", req)
-    assert response == RequestStatus.PENDING
-    response: RequestStatus = get_protein_status("test_seq6", req)
-    assert response == RequestStatus.DENIED
+    response2: RequestStatus = get_protein_status("test_seq4", req)
+    assert response2 == RequestStatus.PENDING
+    response3: RequestStatus = get_protein_status("test_seq6", req)
+    assert response3 == RequestStatus.DENIED
 
 def test_edit_request_status():
     req = create_dummy_request()
