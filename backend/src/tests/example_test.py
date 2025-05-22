@@ -66,7 +66,7 @@ def test_get_protein_entry_user():
 
 #successfully add protein
 def test_upload_protein_entry():
-    body = ProteinBody(name="test_seq7", description="new fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="blank")
+    body = ProteinBody(name="Gh_comp1045_c0_seq1", description="new fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="")
     req = create_dummy_request()
     response = upload_protein_entry(body, req)
     assert response is None
@@ -75,7 +75,7 @@ def test_upload_protein_entry():
 
 #successfully request protein
 def test_request_protein_entry():
-    proteinBody = ProteinBody(name="test_seq8", description="new fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="blank")
+    proteinBody = ProteinBody(name="test_seq8", description="new fake sequence", species_name="test species 1", content="content", refs="refs", pdb_file_str="")
     body = RequestBody(user_id=2, comment="comment", status="Pending", protein=proteinBody)
     req = create_dummy_request()
     response = request_protein_entry(body, req)
