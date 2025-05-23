@@ -99,4 +99,4 @@ jobs:
                   DB_USER: myuser
                   DB_PASSWORD: mypassword
               run: |
-                  poetry run pytest tests/search_test.py tests/proteins_test.py tests/users_test.py
+                  poetry run pytest src/tests/search_test.py src/tests/proteins_test.py src/tests/users_test.py
