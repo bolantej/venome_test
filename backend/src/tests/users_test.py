@@ -1,4 +1,13 @@
-from src.api.users import signup, get_user_id, get_user, get_users, login, delete_user, edit_user
+from src.api.users import (
+    signup, 
+    get_user_id, 
+    get_user, 
+    get_users, 
+    login, 
+    delete_user, 
+    edit_user, 
+    get_user_proteins,
+)
 from src.api_types import (
     SignupBody,
     SignupResponse,

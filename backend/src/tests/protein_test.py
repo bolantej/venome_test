@@ -11,7 +11,14 @@ from src.api.protein import (
     upload_protein_entry,
     delete_protein_entry,
 )
-from src.api_types import ProteinEntry, ProteinBody, UploadError, RequestStatus, RequestBodyEdit, RequestBody
+from src.api_types import (
+    ProteinEntry, 
+    ProteinBody, 
+    UploadError, 
+    RequestStatus, 
+    RequestBodyEdit, 
+    RequestBody,
+)
 from starlette.requests import Request
 from starlette.types import Scope
 from src.auth import generate_auth_token
