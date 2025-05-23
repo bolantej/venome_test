@@ -65,6 +65,7 @@ jobs:
               run: |
                   cd backend
                   poetry install --no-interaction --no-root
+                  poetry add --dev pytest-order
 
             - name: Cache NPM packages
               uses: actions/cache@v3.4.3
