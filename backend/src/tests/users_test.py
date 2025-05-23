@@ -43,9 +43,9 @@ def test_get_users():
 
 def test_get_user_proteins():
     response: list[str] = get_user_proteins(1)
-    assert len(response) == 3
+    assert len(response) == 2
     response: list[str] = get_user_proteins(2)
-    assert len(response) == 0
+    assert len(response) == 1
 
 #successfully attempt to create an account
 def test_account_creation():

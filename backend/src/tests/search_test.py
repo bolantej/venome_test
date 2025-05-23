@@ -60,13 +60,13 @@ def test_search_proteins3():
     assert response.total_found == 1
     
     filter = RangeFilter(min=3, max=5)
-    request = SearchProteinsBody(query="", length_filter=filter)
+    request = SearchProteinsBody(query="", length_filter=filter, atoms_filter=search_range_atoms())
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 1
-    request = SearchProteinsBody(query="", mass_filter=filter)
+    request = SearchProteinsBody(query="", mass_filter=filter, atoms_filter=search_range_atoms())
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 1
-    request = SearchProteinsBody(query="", atoms_filter=filter)
+    request = SearchProteinsBody(query="", mass_filter=search_range_mass(), atoms_filter=filter)
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 2
 
