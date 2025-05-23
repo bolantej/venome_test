@@ -50,7 +50,7 @@ def test_search_proteins3():
     request = SearchProteinsBody(query="", mass_filter=filter)
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 1
-    request = SearchProteinsBody(query="", atoms_filter)
+    request = SearchProteinsBody(query="", atoms_filter=filter)
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 2
 
