@@ -49,13 +49,13 @@ def test_search_proteins2():
 #test different filters
 def test_search_proteins3():
     filter = RangeFilter(min=1, max=2)
-    request = SearchProteinsBody(query="", length_filter=filter)
+    request = SearchProteinsBody(query="", length_filter=filter, atoms_filter=search_range_atoms())
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 2
-    request = SearchProteinsBody(query="", mass_filter=filter)
+    request = SearchProteinsBody(query="", mass_filter=filter, atoms_filter=search_range_atoms())
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 1
-    request = SearchProteinsBody(query="", atoms_filter=filter)
+    request = SearchProteinsBody(query="", mass_filter=search_range_mass(), atoms_filter=filter)
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 1
     
