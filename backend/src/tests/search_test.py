@@ -14,6 +14,21 @@ def test_search_species():
     response = search_species()
     assert len(response) == 2
     assert response[0] == "test species 1"
+   
+def test_search_range_length():
+    response: RangeFilter = search_range_length()
+    assert response.min == 1
+    assert response.max == 3
+
+def test_search_range_mass():
+    response: RangeFilter = search_range_mass()
+    assert response.min == 1.1 
+    assert response.max == 3.3
+
+def test_search_range_atoms():
+    response: RangeFilter = search_range_atoms()
+    assert response.min == 1
+    assert response.max == 5
 
 #test query
 def test_search_proteins():
@@ -27,7 +42,7 @@ def test_search_proteins():
 
 #test species filter
 def test_search_proteins2():
-    request = SearchProteinsBody(query="", species_filter="test species 1")
+    request = SearchProteinsBody(query="", species_filter="test species 1", atoms_filter=search_range_atoms())
     response: SearchProteinResults = search_proteins(request)
     assert response.total_found == 2
     
@@ -75,18 +90,3 @@ def test_search_proteins4():
     request = SearchProteinsBody(query="", sortBy="atomsDesc")
     response: SearchProteinResults = search_proteins(request)
     assert response.protein_entries[0].name == "test_seq2"
-    
-def test_search_range_length():
-    response: RangeFilter = search_range_length()
-    assert response.min == 1
-    assert response.max == 3
-
-def test_search_range_mass():
-    response: RangeFilter = search_range_mass()
-    assert response.min == 1.1 
-    assert response.max == 3.3
-
-def test_search_range_atoms():
-    response: RangeFilter = search_range_atoms()
-    assert response.min == 1
-    assert response.max == 5
